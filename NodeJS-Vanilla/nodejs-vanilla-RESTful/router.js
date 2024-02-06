@@ -4,7 +4,7 @@ const data = new Promise ((resolve, reject)=>{
     fs.readFile("./data.json", "utf-8", function (err, buffer) {
         if (err) reject(err); else resolve(buffer)
     })
-})
+});
 
 const router = async function (req, res) {
   //  GET: /api/blogs
