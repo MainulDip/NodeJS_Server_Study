@@ -11,7 +11,7 @@
 10. Authentication with all
 
 ### Ongoing NodeJS Vanilla:
-=> https://www.tutorialspoint.com/nodejs/nodejs_quick_guide.htm
+=> https://www.tutorialspoint.com/nodejs/nodejs_quick_guide.htm.
 => https://frontendguruji.com/blog/how-to-create-api-in-nodejs-without-express-js/
 => https://www.tutorialspoint.com/nodejs/nodejs_restful_api.htm
 

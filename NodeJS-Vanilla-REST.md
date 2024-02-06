@@ -417,3 +417,38 @@ req.end();
 
 
 ### Vanilla RESTful API with NodeJS (CRUD):
+With the `http.createServer((request, response) => {/**/});`, request object contain all the necessary information to identify GET, POST, PUT, DELETE request through `request.method` prop and `request.url` to detect the api route.
+* Simple GET implementation
+
+```js
+const http = require("http");
+const fs = require('fs');
+
+const data = new Promise ((resolve, reject)=>{
+    fs.readFile("./data.json", "utf-8", function (err, buffer) {
+        if (err) reject(err); else resolve(buffer)
+    })
+})
+
+const PORT = process.env.PORT || 8000;
+
+const server = http.createServer((req, res) => {
+    async function (req, res) {
+      //  GET: /api/blogs
+      if (req.url === "/api/blogs" && req.method === "GET") {
+         // get the blogs.
+         const bufferPromise = await data;
+         const blogs = JSON.parse(bufferPromise)
+         console.log(blogs)
+         // set the status code, and content-type
+         res.writeHead(200, { "Content-Type": "application/json" });
+         // send the data
+         res.end(JSON.stringify(blogs)); // data <string> | <Buffer> | <Uint8Array>
+      }
+    }
+});
+
+server.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
+```
