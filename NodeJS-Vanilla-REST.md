@@ -190,4 +190,136 @@ eventListeners = require('events').EventEmitter.listenerCount(eventEmitter,'conn
 console.log(eventListeners + " listener(s) listening to connection event");
 
 console.log("Program Ended.");
+/** Outputs
+2 listener(s) listening to connection event
+listener1 executed.
+listener2 executed.
+listener1 will not listen now.
+listener2 executed.
+1 listener(s) listening to connection event
+Program Ended.
+*/
 ```
+
+### Working with buffers (binary data):
+Generally, Buffer refers to the particular memory location in memory. Buffer and array have some similarities, but the difference is array can be any type, and it can be resizable. Buffers only deal with binary data, and it can not be resizable. Each integer in a buffer represents a byte. console.log() function is used to print the Buffer instance.
+
+Buffer class is a global class that can be accessed in an application without importing the buffer module.
+
+https://www.geeksforgeeks.org/what-is-buffer-in-node-js/
+
+```js
+buf = new Buffer(256);
+len = buf.write("Simply Easy Learning");
+
+console.log("Octets written : "+  len); // Octets written : 20
+
+
+buf2 = new Buffer(26);
+for (var i = 0 ; i < 26 ; i++) {
+  buf2[i] = i + 97;
+}
+
+console.log( buf2.toString('ascii'));       // outputs: abcdefghijklmnopqrstuvwxyz
+console.log( buf2.toString('ascii',0,5));   // outputs: abcde
+console.log( buf2.toString('utf8',0,5));    // outputs: abcde
+console.log( buf2.toString(undefined,0,5)); // encoding defaults to 'utf8', outputs abcde
+
+```
+### Streams:
+Streams are objects that let you read data from a source or write data to a destination in continuous fashion. In Node.js, there are four types of streams −
+
+- Readable − Stream which is used for read operation.
+- Writable − Stream which is used for write operation.
+- Duplex − Stream which can be used for both read and write operation.
+- Transform − A type of duplex stream where the output is computed based on input.
+
+Each type of Stream is an EventEmitter instance and throws several events at different instance of times. For example, some of the commonly used events are −
+
+- data − This event is fired when there is data is available to read.
+- end − This event is fired when there is no more data to read.
+- error − This event is fired when there is any error receiving or writing data.
+- finish − This event is fired when all the data has been flushed to underlying system.
+
+* ReadFile vs ReadFromStream
+
+ReadFile- It is used to read files into memory completely before it is available for the client-side. createReadStream - It takes small parts of a file loads them into the memory and makes them visible for the client-side more briskly
+
+
+* Piping the Streams: Piping is a mechanism where we provide the output of one stream as the input to another stream. It is normally used to get data from one stream and to pass the output of that stream to another stream.
+
+```js
+var fs = require("fs");
+
+// Create a readable stream
+var readerStream = fs.createReadStream('input.txt');
+
+// Create a writable stream
+var writerStream = fs.createWriteStream('output.txt');
+
+// Pipe the read and write operations
+// read input.txt and write data to output.txt
+readerStream.pipe(writerStream);
+
+console.log("Program Ended");
+```
+
+* Chaining the Streams: Chaining is a mechanism to connect the output of one stream to another stream and create a chain of multiple stream operations. It is normally used with piping operations.
+
+```js
+var fs = require("fs");
+var zlib = require('zlib');
+
+// Compress the file input.txt to input.txt.gz
+fs.createReadStream('input.txt')
+   .pipe(zlib.createGzip())
+   .pipe(fs.createWriteStream('input.txt.gz'));
+  
+console.log("File Compressed.");
+```
+
+### File System (`fs`):
+Node implements File I/O using simple wrappers around standard POSIX functions.
+
+Every method in the `fs` module has synchronous as well as asynchronous forms. Asynchronous methods take the last parameter as the completion function callback and the first parameter of the callback function as error. 
+
+```js
+var fs = require("fs");
+
+// Asynchronous read
+fs.readFile('input.txt', function (err, data) {
+   if (err) {
+      return console.error(err);
+   }
+   console.log("Asynchronous read: " + data.toString());
+});
+
+// Synchronous read
+var data = fs.readFileSync('input.txt');
+console.log("Synchronous read: " + data.toString());
+
+console.log("Program Ended");
+```
+
+* there are `fs.open(path, flags[, mode], callback)`,`fs.writeFile(filename, data[, options], callback)`, `fs.stat(path, callback)`, `fs.close(fd, callback)`, `fs.ftruncate(fd, len, callback)`, `fs.unlink(path, callback)` to delete file, some methods to work with directory like `fs.mkdir()`, `readdir()`, `rmdir()`, etc. [fd = file descriptor]
+
+### Global Properties/Methods and Objects (No need to require/import):
+`__filename`, `__dirname`, `setTimeout(callback, ms)` & `clearTimeout(t)`, `setInterval(cb, ms)`, etc are available as Globally accessible Prop/Methods.
+
+
+`console` to print information on stdout and stderr. and `process` to get information on current process. Provides multiple events related to process activities are also globally available.
+
+### Utility Modules:
+`OS Module` => Provides basic operating-system related utility functions.
+
+`Path Module` => Provides utilities for handling and transforming file paths.
+
+`Net Module` => Provides both servers and clients as streams. Acts as a network wrapper.
+
+`DNS Module` => Provides functions to do actual DNS lookup as well as to use underlying operating system name resolution functionalities.
+
+`Domain Module` => Provides ways to handle multiple different I/O operations as a single group.
+
+
+### Web Module:
+Node.js provides an http module which can be used to create an HTTP server to receive external request or an HTTP client to send request to a server.

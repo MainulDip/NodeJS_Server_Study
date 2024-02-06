@@ -8,7 +8,7 @@ var eventEmitter = new events.EventEmitter();
 var connectHandler = function connected() {
    console.log('connection successful.');
    // emit data after 3 seconds
-   setTimeout(()=>{eventEmitter.emit('data_received');}, 3000)   
+   setTimeout(()=>{eventEmitter.emit('data_received');}, 3000)   ;
 }
 
 // Bind the connection event with the handler
