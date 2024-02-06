@@ -1,0 +1,8 @@
+[
+    {"id": 1, "title": "First Post", "body": "This is the first post of this blog"},
+    {"id": 2, "title": "Second Post", "body": "This is the Second post of this blog"},
+    {"id": 3, "title": "Third Post", "body": "This is the Third post of this blog"},
+    {"id": 4, "title": "Fourth Post", "body": "This is the Fourth post of this blog"},
+    {"id": 5, "title": "Fifth Post", "body": "This is the Fifth post of this blog"},
+    {"id": 6, "title": "Sixth Post", "body": "This is the Sixth post of this blog"}
+]

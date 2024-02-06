@@ -1,14 +1,22 @@
-const Blog = require("../models/blogModel");
+const fs = require('fs');
+
+const data = new Promise ((resolve, reject)=>{
+    fs.readFile("./data.json", "utf-8", function (err, buffer) {
+        if (err) reject(err); else resolve(buffer)
+    })
+})
 
 const router = async function (req, res) {
   //  GET: /api/blogs
   if (req.url === "/api/blogs" && req.method === "GET") {
     // get the blogs.
-    const blogs = await Blog.find();
+    const bufferPromise = await data;
+    const blogs = JSON.parse(bufferPromise)
+    console.log(blogs)
     // set the status code, and content-type
     res.writeHead(200, { "Content-Type": "application/json" });
     // send the data
-    res.end(JSON.stringify(blogs));
+    res.end(JSON.stringify(blogs)); // data <string> | <Buffer> | <Uint8Array>
   }
 
   //  GET: /api/blogs/:id
@@ -17,13 +25,15 @@ const router = async function (req, res) {
       // extract id from url
       const id = req.url.split("/")[3];
       // get blog from DB
-      const blog = await Blog.findById(id);
+      const blogs = await data;
+      const blog = JSON.parse(blogs).filter ( item => item.id == id );
+      console.log(blog.length)
 
-      if (blog) {
+      if (blog.length > 0) {
         // set the status code and content-type
         res.writeHead(200, { "Content-Type": "application/json" });
         // send the data
-        res.end(JSON.stringify(blog));
+        res.end(JSON.stringify(blog[0]));
       } else {
         throw new Error("Requested blog does not exist");
       }
@@ -31,9 +41,12 @@ const router = async function (req, res) {
       // set the status code and content-type
       res.writeHead(404, { "Content-Type": "application/json" });
       // send the error
-      res.end(JSON.stringify({ message: error }));
+      res.end(JSON.stringify({ message: error.toString() }));
     }
   }
+
+  
+  ////////////////////////////// Need to Implement /////////////////////////////
 
   //  POST: /api/blogs
   if (req.url === "/api/blogs" && req.method === "POST") {
