@@ -157,3 +157,12 @@ const server = app.listen(8081, () => {
     console.log("Example app listening at http://%s:%s", host, port)
 });
 ```
+
+### MiddleWare Functions:
+
+### Authentication (put this in another markdown-module):
+
+### GraphQL using `express-graphql`:
+
+
+### GraphQL with apollo (put this in another markdown-module)
