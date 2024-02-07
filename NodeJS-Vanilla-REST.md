@@ -452,3 +452,14 @@ server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 ```
+
+### NodeJS Application Scaling:
+Node.js runs in a single-thread mode, but it uses an event-driven paradigm to handle concurrency. It also facilitates creation of child processes to leverage parallel processing on multi-core CPU based systems.
+
+Child processes always have three streams `child.stdin`, `child.stdout`, and `child.stderr` which may be shared with the stdio streams of the parent process.
+
+Node provides `child_process` module which has the following three major ways to create a child process. Import it by `require('child_process');`
+
+1. `exec` − child_process.exec method runs a command in a shell/console and buffers the output. ex, `child_process.exec(command[, options], callback)`
+2. `spawn` − child_process.spawn launches a new process with a given command. ex, `child_process.spawn(command[, args][, options])`
+3. `fork` − The child_process.fork method is a special case of the spawn() to create child processes. The fork method returns an object with a built-in communication channel in addition to having all the methods in a normal ChildProcess instance. ex, `child_process.fork(modulePath[, args][, options])`
