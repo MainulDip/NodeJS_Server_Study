@@ -4,7 +4,8 @@
   "description": "Express 001, Setting up a Bare minimum RESTful API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node index.js"
   },
   "author": "Mainul Dip",
   "license": "ISC",
