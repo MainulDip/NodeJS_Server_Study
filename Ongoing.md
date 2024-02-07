@@ -26,4 +26,4 @@
 ### Now
 => Express form tutorial's point and RESTful => Prisma SqlLite
 => Express with `express-graphql` (Without apollo) [https://snipcart.com/blog/graphql-nodejs-express-tutorialhttps://snipcart.com/blog/graphql-nodejs-express-tutorial]
-=> Express with Apollo (Both Server and Client)
+=> Express with Apollo (Both Server and Client).
