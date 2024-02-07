@@ -3,7 +3,7 @@ const app = express();
 
 app.get('/', (req, res) => {
     res.send("hello world")
-})
+});
 
 const server = app.listen(8081, () => {
     // the outer variable `server` is already available inside the callback at this point
