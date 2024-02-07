@@ -27,3 +27,15 @@
 => Express form tutorial's point and RESTful => Prisma SqlLite
 => Express with `express-graphql` (Without apollo) [https://snipcart.com/blog/graphql-nodejs-express-tutorialhttps://snipcart.com/blog/graphql-nodejs-express-tutorial]
 => Express with Apollo (Both Server and Client).
+=> Node gRPC
+=> Compose | SwiftUI | React Native (Finish Remaining)
+
+### Next (Side by Side with `iOS, Android and React Native` as Main):
+=> Java Web Server => Spring Boot RESTful => Spring Boot GraphQL => Java gRPC
+=> Spring Boot Authentication (Credentials, OAuth, Email, JWT)
+=> Spring Boot ReactJS
+=> Kotlin Multi Platform
+=> Machine Learning
+=> C# and Unity (AR/VR and Game) => Windows Desktop C# (March/April)
+=> Golang RESTful, GraphQL, Authentication, gRPC (April)
+=> KMP for iOS|Android|Windows|Mac|Linux (May/June) [at this point U already knows all Native Platforms] => Basic Cloud Operations, Load Balancing, CI/CD
