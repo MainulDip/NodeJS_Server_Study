@@ -185,7 +185,48 @@ app.listen(3000);
 ```
 
 ### MiddleWare Functions:
-Middleware function (`app.use(function(req, res, next){})`) can be triggered any point after User/Client made a request to the Server. Middleware fn have access to the `request object (req)`, the `response object (res)`, and the `next middleware` function in the application’s `request-response` cycle. These functions are used to modify req and res objects for tasks like parsing request bodies, adding response headers, etc. And like everything, their position matters.
+Middleware function can be triggered any point after User/Client made a request to the Server. 
+* `app.use(function(req, res, next){})` and all of the route handling functions like `app.get`, `app.post` with 3 arguments in their callback are both middleware and route function.
+
+Middleware functions have access to the `request object (req)`, the `response object (res)`, and the `next middleware` function in the application’s `request-response` cycle. These functions are used to modify req and res objects for tasks like parsing request bodies, adding response headers, etc. And like everything, their position matters.
+
+Middleware functions can perform the following tasks:
+
+- Execute any code.
+- Make changes to the request and the response objects.
+- End the request-response cycle.
+- Call the next middleware in the stack.
+
+If the current middleware function does not end the request-response cycle, it must call `next()` to pass control to the next middleware function. Otherwise, the request will be left hanging.
+
+
+https://expressjs.com/en/guide/writing-middleware.html
+
+* MiddleWare type => 1. WildCard (that only have callback and no route), 2. Route Middle Ware (an URL route is the first param, followed by callback as second). Also note, callback with 3 params are regular Middleware, with 4 params is a Error Handler Middleware.
+
+* `next` function => `next()` will call the next matching route handler or middleware, without next() call, it will not move forward. `next(param)` will trigger error which needs to be handle with next matching route's `err` param object
+
+* Middleware to count request and server response time
+
+```js
+const express = require('express');
+const app = express()
+
+const requestTime = function (req, res, next) {
+  req.requestTime = Date.now()
+  next()
+}
+
+app.use(requestTime)
+
+app.get('/', (req, res) => {
+  let responseText = 'Hello World!<br>'
+  responseText += `<small>Requested at: ${req.requestTime}</small>`
+  res.send(responseText)
+})
+
+app.listen(3000)
+```
 
 ### Static files:
 

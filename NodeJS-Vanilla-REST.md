@@ -416,7 +416,7 @@ req.end();
 ```
 
 
-### Vanilla RESTful API with NodeJS (CRUD):
+### Vanilla RESTful API with NodeJS (CRUD)
 With the `http.createServer((request, response) => {/**/});`, request object contain all the necessary information to identify GET, POST, PUT, DELETE request through `request.method` prop and `request.url` to detect the api route.
 * Simple GET implementation
 

@@ -40,4 +40,4 @@
 => Golang RESTful, GraphQL, Authentication, gRPC (April)
 => KMP for iOS|Android|Windows|Mac|Linux (May/June) [at this point U already knows all Native Platforms] => Basic Cloud Operations, Load Balancing, CI/CD
 
-(Spring Boot/JPA/[Hibernate/Spring-Data-JDBC]/Lombok/Mockito)
+(Spring Boot/JPA/ [Hibernate/Spring-Data-JDBC] /Lombok/Mockito)
