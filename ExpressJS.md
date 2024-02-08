@@ -185,7 +185,7 @@ app.listen(3000);
 ```
 
 ### MiddleWare Functions:
-Middleware function in express have access to the `request object (req)`, the `response object (res)`, and the `next middleware` function in the application’s `request-response` cycle. These functions are used to modify req and res objects for tasks like parsing request bodies, adding response headers, etc.
+Middleware function (`app.use(function(req, res, next){})`) can be triggered any point after User/Client made a request to the Server. Middleware fn have access to the `request object (req)`, the `response object (res)`, and the `next middleware` function in the application’s `request-response` cycle. These functions are used to modify req and res objects for tasks like parsing request bodies, adding response headers, etc. And like everything, their position matters.
 
 ### Static files:
 
