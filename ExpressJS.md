@@ -158,11 +158,72 @@ const server = app.listen(8081, () => {
 });
 ```
 
+### Routing (Fixed and Dynamic):
+Express matches routes from start to end of the index.js file, including the external routers you required. Routes can be Fixed/Static, Dynamic (`/api/users/:id`), Dynamic with RegX (`"/things/:id([0-9]{5})"`) or WildCard (`"*"`)
+
+```js
+var express = require('express');
+var app = express();
+
+// Dynamic Routes, dynamic slots are available as their text after `:`
+app.get('/things/:name/:id', function(req, res) {
+   res.send('id: ' + req.params.id + ' and name: ' + req.params.name);
+});
+
+// Dynamic Route With Regular Express
+app.get('/things/:id([0-9]{5})', function(req, res){
+   res.send('id: ' + req.params.id);
+});
+
+
+// WildCard Route, this should come at the last resort
+app.get('*', function(req, res){
+   res.send('Sorry, this is an invalid URL.');
+});
+
+app.listen(3000);
+```
+
 ### MiddleWare Functions:
+Middleware function in express have access to the `request object (req)`, the `response object (res)`, and the `next middleware` function in the application’s `request-response` cycle. These functions are used to modify req and res objects for tasks like parsing request bodies, adding response headers, etc.
+
+### Static files:
+
+### Form Handling (`body-parser` and `multer` for multipart form):
+
+
+### Template-ing (`pug`,`handlebar`):
+
+### Database and ORM (`prisma`) integration:
+
+### Cookies and Sessions:
 
 ### Authentication (put this in another markdown-module):
 
-### GraphQL using `express-graphql`:
+### Error Handling:
+Error handling in Express is done using middleware, But error-handling functions MUST have four arguments instead of three – `err, req, res, next`.
+```js
+app.get('/', function(req, res){
+   var err = new Error("Something went wrong");
+   next(err);
+});
 
+/*
+ * other route handlers and middleware here
+ * ....
+ */
+
+//An error handling middleware
+app.use(function(err, req, res, next) {
+   res.status(500);
+   res.send("Oops, something went wrong.")
+});
+```
+### Debugging:
+Can be used with `Debug` npm package (https://www.npmjs.com/package/debug). Set a script like `"debug": "set DEBUG = Express:* node app.js"` and run.
+
+- `"app-router-debug": "set DEBUG = express:application,express:router node index.js"` to restrict the logger to application and router.
+
+### GraphQL using `express-graphql`:
 
 ### GraphQL with apollo (put this in another markdown-module)
