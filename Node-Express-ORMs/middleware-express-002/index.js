@@ -21,8 +21,7 @@ app.use(function(req, res, next){
     console.log('End', req.originalUrl);
  });
  
- app.listen(3000);
-
+ app.listen(3000)
 
  /**
 //First middleware before response is sent

@@ -9,7 +9,7 @@ https://everything.curl.dev/usingcurl/verbose/writeout
 ### Frequently Used Commands:
 `curl http://localhost:8080/` or `curl -s http://localhost:8080/` => Get Request
 
-`curl -o output.txt http://localhost:8080/` or `curl http://localhost:8080/ > output.txt` => Putting GET request response into a file named `output.txt`
+`curl -o output.txt http://localhost:8080/` or `curl http://localhost:8080/ > output.txt` => Putting GET request response into a file named `output.txt`.
 
 `curl --data "name=John&surname=Doe" http://www.dataden.tech` or with JSON data `curl -d '{"name":"John","surname":"Doe"}' \http://www.dataden.tech` or with -X flag (-request) method `curl -X "POST" \-d "name=John&surname=Doe" http://www.example.com` => POST request, PUT/DELETE is also there
 

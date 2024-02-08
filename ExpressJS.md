@@ -206,22 +206,22 @@ https://expressjs.com/en/guide/writing-middleware.html
 
 * `next` function => `next()` will call the next matching route handler or middleware, without next() call, it will not move forward. `next(param)` will trigger error which needs to be handle with next matching route's `err` param object
 
-* Middleware to count request and server response time
+* Middleware to count request and server response time. Notice, how we're defining and passing a new property `requestTimeCustom` inside middleware callback and calling that form the next middleware callback's request object
 
 ```js
 const express = require('express');
 const app = express()
 
 const requestTime = function (req, res, next) {
-  req.requestTime = Date.now()
+  req.requestTimeCustom = Date.now(); // attaching a new property with request object
   next()
 }
 
-app.use(requestTime)
+app.use(requestTime) // once passed as middleware callback (3 props), the property will be available inside next middleware-router
 
 app.get('/', (req, res) => {
   let responseText = 'Hello World!<br>'
-  responseText += `<small>Requested at: ${req.requestTime}</small>`
+  responseText += `<small>Requested at: ${req.requestTimeCustom}</small>`; // calling the newly attached prop that was declared previously through middleware callback
   res.send(responseText)
 })
 
