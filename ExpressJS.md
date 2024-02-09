@@ -284,6 +284,72 @@ app.get('/', (req, res) => {
 
 app.listen(3000)
 ```
+### ThirdParty Middleware (*`body-parser`, *`cookie-parser`, `formidable`, `multer`):
+`body-parser` Parse incoming request bodies in a middleware before your handlers, available under the req.body property. It provide JSON, RAW, TEXT and URL-encoded-form parsing. This does not handle multipart bodies, for handling this, use `formidable`, `multer`, etc. Docs => https://www.npmjs.com/package/body-parser
+
+* parsing all incoming request
+
+```js
+var express = require('express')
+var bodyParser = require('body-parser')
+
+var app = express()
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
+
+app.use(function (req, res) {
+  res.setHeader('Content-Type', 'text/plain')
+  res.write('you posted:\n')
+  res.end(JSON.stringify(req.body, null, 2))
+})
+```
+
+* Using with router
+
+```js
+// create application/json parser
+var jsonParser = bodyParser.json()
+
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
+// POST /login gets urlencoded bodies
+app.post('/login', urlencodedParser, function (req, res) {
+  res.send('welcome, ' + req.body.username)
+})
+
+// POST /api/users gets JSON bodies
+app.post('/api/users', jsonParser, function (req, res) {
+  // create user in req.body
+})
+```
+
+* Cookie Parser (`npm install cookie-parser`) => Parse Cookie header and populate req.cookies with an object keyed by the cookie names. Optionally you may enable signed cookie support by passing a secret string, which assigns req.secret so it may be used by other middleware. Docs => https://www.npmjs.com/package/cookie-parser
+
+```js
+var express = require('express')
+var cookieParser = require('cookie-parser')
+
+var app = express()
+app.use(cookieParser())
+
+app.get('/', function (req, res) {
+  // Cookies that have not been signed
+  console.log('Cookies: ', req.cookies)
+
+  // Cookies that have been signed
+  console.log('Signed Cookies: ', req.signedCookies)
+})
+
+app.listen(8080)
+
+// curl command that sends an HTTP request with two cookies
+// curl http://127.0.0.1:8080 --cookie "Cho=Kim;Greet=Hello"
+```
 
 ### Static files:
 
