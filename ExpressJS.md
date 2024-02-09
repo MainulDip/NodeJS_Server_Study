@@ -206,6 +206,63 @@ https://expressjs.com/en/guide/writing-middleware.html
 
 * `next` function => `next()` will call the next matching route handler or middleware, without next() call, it will not move forward. `next(param)` will trigger error which needs to be handle with next matching route's `err` param object
 
+```js
+const express = require("express");
+const util = require("util")
+
+const app = express();
+
+
+// this middleware will always run whenever client's request is made
+app.use(function(req, res, next){
+    console.log("Hi I'm here", req.originalUrl);
+    next(); // next without parameter will call the next matching router or middleware
+    // next(param: Error), with param, it will forward the error msg to next route handler on its `err` (1st of 4 param) object
+ });
+
+app.use('/', function (req, res, next) {
+   console.log("Hitting on / route from app.use", req.originalUrl);
+   next();
+})
+ 
+ //Route handler
+ app.get('/', function(req, res, next){
+   console.log("Hitting on / route from app.get", req.originalUrl);
+   res.send(`Ending Middleware Chaining by red.send ${req.originalUrl}`);
+ });
+
+ // throwing error can be handle using error handler middleware (4 parameter callback)
+ app.get('/error', function (req,res,next){
+   throw new Error("Intentionally throwing error")
+   // next("Intentionally throwing error using the next middleware's function") // recommended way
+   // try { throw new Error ("Error Message")} catch (err) { next(err) } // also recommended
+   // try { throw new Error ("Error Message")} catch (next) // another recommended option
+ })
+ 
+ app.use('/index', function(req, res, next){
+    console.log('End', req.originalUrl);
+    next();
+ });
+
+ app.get('/index', function (req, res, next) {
+   console.log('End', req.originalUrl);
+   res.end(`Response From /index route ${req.originalUrl}`);
+ })
+
+ // this middleware will only trigger if any error is thrown
+ // if error triggered with the `next` middleware function, it will directly accessible as `err` param
+ app.use(function(err, req, res, next) {
+   console.log("Error Middleware Callback triggered")
+   // res.send(`${util.inspect(err)}`);
+   console.log(util.inspect(err));
+   res.send(err.message);
+   // res.send(err);
+ });
+ 
+ app.listen(3000)
+```
+
+
 * Middleware to count request and server response time. Notice, how we're defining and passing a new property `requestTimeCustom` inside middleware callback and calling that form the next middleware callback's request object
 
 ```js
@@ -242,7 +299,7 @@ app.listen(3000)
 ### Authentication (put this in another markdown-module):
 
 ### Error Handling:
-Error handling in Express is done using middleware, But error-handling functions MUST have four arguments instead of three – `err, req, res, next`.
+Error handling in Express is done using middleware, But error-handling functions MUST have four arguments instead of three – `err, req, res, next`. Docs => http://expressjs.com/en/guide/error-handling.html
 ```js
 app.get('/', function(req, res){
    var err = new Error("Something went wrong");
@@ -261,7 +318,23 @@ app.use(function(err, req, res, next) {
 });
 ```
 ### Debugging:
-Can be used with `Debug` npm package (https://www.npmjs.com/package/debug). Set a script like `"debug": "set DEBUG = Express:* node app.js"` and run.
+Object inspection can be done by importing/requiring `util` package and triggering its `inspect` function.
+
+````js
+const express = require("express");
+const util = require("util");
+
+const app = express();
+
+app.get('/', function(req, res, next){
+   console.log(util.inspect(req));
+   res.end("Response form server")
+});
+
+app.listen(3000);
+```
+
+Also `Debug` npm package (https://www.npmjs.com/package/debug) can be used. Set a script like `"debug": "set DEBUG = Express:* node app.js"` and run.
 
 - `"app-router-debug": "set DEBUG = express:application,express:router node index.js"` to restrict the logger to application and router.
 

@@ -19,7 +19,7 @@
 ### Ongoing NodeJS-Express-ORMs (RESTful Servers):
 => https://www.tutorialspoint.com/expressjs/expressjs_quick_guide.htm
 
-### Prisma
+### Prisma:
 => https://dev.to/nextdev/how-to-use-prisma-with-express-postgress-and-graphql-4ch9
 
 
