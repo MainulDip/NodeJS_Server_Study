@@ -419,7 +419,7 @@ app.get('/dynamic_view', function(req, res){
 app.listen(3000);
 ```
 ### Static files:
-Express use built-in middleware `app.use(express.static('public'));` to enable static file serving. Multiple directory can be set. Also static folders are considered same level as root directory. To change this, virtual path prefix can be declared by `app.use('/static', express.static('public'));`
+Express use built-in middleware `app.use(express.static('public'));` to enable static file serving. Multiple directory can be set. Also static folders are considered same level as root directory. To change this, virtual path prefix can be declared by `app.use('/static', express.static('public'));`.
 
 ```pug
 html
@@ -482,11 +482,6 @@ app.post('/', function(req, res){
 });
 app.listen(3000);
 ```
-### Database and ORM (`prisma`) integration:
-
-### Cookies and Sessions:
-
-### Authentication (put this in another markdown-module):
 
 ### Error Handling:
 Error handling in Express is done using middleware, But error-handling functions MUST have four arguments instead of three – `err, req, res, next`. Docs => http://expressjs.com/en/guide/error-handling.html
@@ -510,7 +505,7 @@ app.use(function(err, req, res, next) {
 ### Debugging:
 Object inspection can be done by importing/requiring `util` package and triggering its `inspect` function.
 
-````js
+```js
 const express = require("express");
 const util = require("util");
 
@@ -524,9 +519,42 @@ app.get('/', function(req, res, next){
 app.listen(3000);
 ```
 
-Also `Debug` npm package (https://www.npmjs.com/package/debug) can be used. Set a script like `"debug": "set DEBUG = Express:* node app.js"` and run.
+Also `Debug` npm_package (https://www.npmjs.com/package/debug) can be used. Set a script like `"debug": "set DEBUG = Express:* node app.js"` and run.
 
-- `"app-router-debug": "set DEBUG = express:application,express:router node index.js"` to restrict the logger to application and router.
+- `"app-router-debug": "set DEBUG = express:application,express:router node index.js"`to restrict the logger to application and router.
+
+### Cookies and Sessions:
+ * Cookies => once set form the server, saved cookies is retrieved by `document.cookie` from browser console. `console.log(document.cookie);` can do this
+
+ ```js
+var express = require('express');
+var cookieParser = require('cookie-parser');
+var app = express();
+
+app.use(cookieParser());
+
+const cookieName = "cookieFoo"
+
+app.get('/', function (req, res) {
+    console.log(req.cookies); // print all cookies in server console
+    res.cookie(cookieName, 'express', { expire: 360000 + Date.now() }) //Sets name = express
+        .send('cookie set');
+});
+
+app.get('/clear_cookie_foo', function (req, res) {
+    console.log(req.cookies); // print all cookies in server console
+    res.clearCookie(cookieName);
+    res.send('cookie foo cleared');
+});
+
+app.listen(3000);
+ ```
+
+* Session => Using the `express-session` package, session is set based on a secret by the request object by `req.session.session_name` (same syntax for reading the same session). Creating a new session in server create/assign an associated cookie to the browser. Browser's session cookie can be red with same syntax `req.session.session_name`
+
+### Authentication (put this in another markdown-module):
+
+### Database and ORM (`prisma`) integration:
 
 ### GraphQL using `express-graphql`:
 
