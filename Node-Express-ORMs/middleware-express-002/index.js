@@ -1,7 +1,7 @@
 const express = require("express");
 const util = require("util")
 
-const app = express()
+const app = express();
 
 
 // this middleware will always run whenever client's request is made

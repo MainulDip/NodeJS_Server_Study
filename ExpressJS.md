@@ -184,6 +184,38 @@ app.get('*', function(req, res){
 app.listen(3000);
 ```
 
+### Route Handler:
+multiple callback functions can be supplied, that behave like middleware to handle a request. These callbacks might invoke next() function. This a mechanism to impose pre-conditions on a route, then pass control to subsequent routes if there’s no reason to proceed with the current route.
+
+```js
+// 2 callback in route function
+app.get('/example/b', (req, res, next) => {
+  console.log('the response will be sent by the next function ...')
+  next()
+}, (req, res) => {
+  res.send('Hello from B!')
+})
+
+
+// Defining 3 callback, first two is middleware like callback 
+const cb0 = function (req, res, next) {
+  console.log('CB0')
+  next()
+}
+
+const cb1 = function (req, res, next) {
+  console.log('CB1')
+  next()
+}
+
+const cb2 = function (req, res) {
+  res.send('Hello from C!')
+}
+
+app.get('/example/c', [cb0, cb1, cb2])
+
+```
+
 ### MiddleWare Functions:
 Middleware function can be triggered any point after User/Client made a request to the Server. 
 * `app.use(function(req, res, next){})` and all of the route handling functions like `app.get`, `app.post` with 3 arguments in their callback are both middleware and route function.
@@ -351,13 +383,105 @@ app.listen(8080)
 // curl http://127.0.0.1:8080 --cookie "Cho=Kim;Greet=Hello"
 ```
 
+### Template-ing (`pug`,`handlebar`, `EJS`):
+To install Pug `npm install --save pug`, also no need to require it. 
+- Use directly by `app.set('view engine', 'pug');` 
+- Set the template directory by `app.set('views','./directory_name');`. 
+- Render the pug file using `red.render('filename.pug', {...props});`
+
+Note: in pug file, passed props are consumed by `htmlElement=prop` and `#{prop}` signature.
+
+```pug
+// main.pug file
+html
+   head
+      title pageTitle
+   body
+      include ./header.pug
+      h1 Greetings from #{name}
+      h3 I'm the main content
+      a(href = url) Next Post
+      include ./footer.pug
+```
+
+```js
+var express = require('express');
+var app = express();
+
+app.get('/dynamic_view', function(req, res){
+   res.render('dynamic', {
+      pageTitle: "First Post",
+      name: "WebSolverPro",
+      url:"https://www.websolverpro.com/Second-Post"
+   });
+});
+
+app.listen(3000);
+```
 ### Static files:
+Express use built-in middleware `app.use(express.static('public'));` to enable static file serving. Multiple directory can be set. Also static folders are considered same level as root directory. To change this, virtual path prefix can be declared by `app.use('/static', express.static('public'));`
+
+```pug
+html
+   head
+   body
+      h3 Testing static file serving:
+      img(src = "/testimage.jpg", alt = "Testing Image")
+```
 
 ### Form Handling (`body-parser` and `multer` for multipart form):
+To work with forms easily install the body-parser(for parsing JSON and url-encoded data) and multer(for parsing multipart/form data) middleware.
+`npm install --save body-parser multer`
 
+```pug
+html
+html
+   head
+      title Form Tester
+   body
+      form(action = "/", method = "POST")
+         div
+            label(for = "say") Say:
+            input(name = "say" value = "Hi")
+         br
+         div
+            label(for = "to") To:
+            input(name = "to" value = "Express forms")
+         br
+         button(type = "submit") Send my greetings
+```
 
-### Template-ing (`pug`,`handlebar`):
+```js
+var express = require('express');
+var bodyParser = require('body-parser');
+var multer = require('multer');
+var upload = multer();
+var app = express();
 
+app.get('/', function(req, res){
+   res.render('form');
+});
+
+app.set('view engine', 'pug');
+app.set('views', './views');
+
+// for parsing application/json
+app.use(bodyParser.json()); 
+
+// for parsing application/xwww-
+app.use(bodyParser.urlencoded({ extended: true })); 
+//form-urlencoded
+
+// for parsing multipart/form-data
+app.use(upload.array()); 
+app.use(express.static('public'));
+
+app.post('/', function(req, res){
+   console.log(req.body);
+   res.send("recieved your request!");
+});
+app.listen(3000);
+```
 ### Database and ORM (`prisma`) integration:
 
 ### Cookies and Sessions:

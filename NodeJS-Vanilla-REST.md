@@ -303,7 +303,7 @@ console.log("Program Ended");
 
 * there are `fs.open(path, flags[, mode], callback)`,`fs.writeFile(filename, data[, options], callback)`, `fs.stat(path, callback)`, `fs.close(fd, callback)`, `fs.ftruncate(fd, len, callback)`, `fs.unlink(path, callback)` to delete file, some methods to work with directory like `fs.mkdir()`, `readdir()`, `rmdir()`, etc. [fd = file descriptor]
 
-### Global Properties/Methods and Objects (No need to require/import)
+### Global Properties/Methods and Objects (No need to require/import):
 `__filename`, `__dirname`, `setTimeout(callback, ms)` & `clearTimeout(t)`, `setInterval(cb, ms)`, etc are available as Globally accessible Prop/Methods.
 
 
