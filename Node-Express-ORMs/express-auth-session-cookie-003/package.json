@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "cookie-server": "node cookie-server.js",
-    "session-server": "node cookie-server.js",
+    "session-server": "node session-server.js",
     "auth-server": "node cookie-server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cookie-parser": "^1.4.6",
     "express": "^4.18.2",
-    "cookie-parser": "^1.4.6"
+    "express-session": "^1.18.0"
   }
 }

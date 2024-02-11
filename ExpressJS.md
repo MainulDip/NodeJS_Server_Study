@@ -550,7 +550,13 @@ app.get('/clear_cookie_foo', function (req, res) {
 app.listen(3000);
  ```
 
-* Session => Using the `express-session` package, session is set based on a secret by the request object by `req.session.session_name` (same syntax for reading the same session). Creating a new session in server create/assign an associated cookie to the browser. Browser's session cookie can be red with same syntax `req.session.session_name`
+* Session => Using the `express-session` package, session is set based on a secret (`app.use(session({secret: "Anything as secret"}))`) and by the request object using `req.session.session_name` (same syntax for reading the same session). 
+
+Creating a new session in server create/assign an associated cookie (along with session secret) to the browser. Browser's session cookie can be read/verify with same syntax `req.session.session_name`
+
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
+
+
 
 ### Authentication (put this in another markdown-module):
 
