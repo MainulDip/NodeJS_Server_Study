@@ -31,13 +31,11 @@
 => Compose | SwiftUI | React Native (Finish Remaining)
 
 ### Next after Express/Prisma/AUTH/GraphQL/gRPC/ReactNative (Side by Side with `iOS, Android and React Native` as Main):
-=> Java Vanilla Web Server => Spring Boot RESTful => Spring Boot GraphQL => Java gRPC
+=> Java Vanilla Web Server => Spring Boot and Quarkus RESTful + GraphQL => Java gRPC
 => Spring Boot Authentication (Credentials, OAuth, Email, JWT)
 => Spring Boot ReactJS
 => Kotlin Multi Platform
 => Machine Learning
 => C# and Unity (AR/VR and Game) => Windows Desktop C# (March/April)
-=> Golang RESTful, GraphQL, Authentication, gRPC (April)
 => KMP for iOS|Android|Windows|Mac|Linux (May/June) [at this point U already knows all Native Platforms] => Basic Cloud Operations, Load Balancing, CI/CD
-
-(Spring Boot/JPA/ [Hibernate/Spring-Data-JDBC] /Lombok/Mockito)
+(Spring Boot/JPA/ [Hibernate/Spring-Data-JDBC] /Lombok/Mockito).

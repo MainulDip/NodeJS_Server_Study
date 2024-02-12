@@ -14,7 +14,7 @@ app.get('/', (req,res)=>{
         req.session.page_views = 1;
         res.send("Welcome to this page for the first time!");
      }
-})
+});
 
 
 app.listen(3000);

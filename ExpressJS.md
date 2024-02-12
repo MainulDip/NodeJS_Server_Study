@@ -552,9 +552,25 @@ app.listen(3000);
 
 * Session => Using the `express-session` package, session is set based on a secret (`app.use(session({secret: "Anything as secret"}))`) and by the request object using `req.session.session_name` (same syntax for reading the same session). 
 
-Creating a new session in server create/assign an associated cookie (along with session secret) to the browser. Browser's session cookie can be read/verify with same syntax `req.session.session_name`
+Creating a new session in server also automatically creates/assigns an associated HttpOnly Cookie (upon the session secret) to the browser. Browser's session cookie can be read/verify with same syntax `req.session.session_name` as getter (within the server). When reading, server will read the HttpOnly cookie sent form browser, parse/decrypt, and return the original value form the key.
 
-https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
+Note: HttpOnly Cookies Cannot Be Accessed Using Scripts (to stop CSRF), https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies. From browser, it can be accessed using GUI.
+
+```js
+const session = require("express-session");
+
+app.use(session({secret: "Custom Secret Key"}));
+
+app.get('/', (req,res)=>{
+    if(req.session.page_views){
+        req.session.page_views++;
+        res.send("You visited this page " + req.session.page_views + " times");
+     } else {
+        req.session.page_views = 1;
+        res.send("Welcome to this page for the first time!");
+     }
+})
+```
 
 
 
