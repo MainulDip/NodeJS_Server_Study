@@ -159,7 +159,7 @@ const server = app.listen(8081, () => {
 ```
 
 ### Routing (Fixed and Dynamic):
-Express matches routes from start to end of the index.js file, including the external routers you required. Routes can be Fixed/Static, Dynamic (`/api/users/:id`), Dynamic with RegX (`"/things/:id([0-9]{5})"`) or WildCard (`"*"`)
+Express matches routes from start to end of the index.js file, including the external routers you required. Routes can be Fixed/Static, Dynamic (`/api/users/:id`), Dynamic with RegX (`"/things/:id([0-9]{5})"`) or WildCard (`"*"`).
 
 ```js
 var express = require('express');
@@ -293,7 +293,6 @@ app.use('/', function (req, res, next) {
  
  app.listen(3000)
 ```
-
 
 * Middleware to count request and server response time. Notice, how we're defining and passing a new property `requestTimeCustom` inside middleware callback and calling that form the next middleware callback's request object
 
@@ -571,7 +570,6 @@ app.get('/', (req,res)=>{
      }
 })
 ```
-
 
 
 ### Authentication (put this in another markdown-module):
