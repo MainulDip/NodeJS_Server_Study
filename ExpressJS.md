@@ -555,6 +555,17 @@ Creating a new session in server also automatically creates/assigns an associate
 
 Note: HttpOnly Cookies Cannot Be Accessed Using Scripts (to stop CSRF), https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies. From browser, it can be accessed using GUI.
 
+
+Note: `express-session` By default stores session key inside memory/ram, which is not recommended (as on server restart, all keys will be removed from RAM). Its better to store session keys inside Database (postgres/sqlite/mysql, etc). `@client/prisma` and `@quixo3/prisma-session-store` can be used together. Or use `connect-session-knex` standalone or with prisma.
+
+https://github.com/prisma/prisma
+https://www.npmjs.com/package/@quixo3/prisma-session-store
+
+https://www.npmjs.com/package/knex (so many downloads)
+https://www.npmjs.com/package/connect-session-knex (so many downloads)
+
+https://www.npmjs.com/package/express-session#compatible-session-stores
+
 ```js
 const session = require("express-session");
 

@@ -10,7 +10,7 @@
 9. webRTC with NextJS, MERN, Android/iOS (Native + RN), Spring Boot, GoLang
 10. Authentication with all
 
-### Ongoing NodeJS Vanilla:
+### Ongoing NodeJS Vanilla
 => https://www.tutorialspoint.com/nodejs/nodejs_quick_guide.htm.
 => https://frontendguruji.com/blog/how-to-create-api-in-nodejs-without-express-js/
 => https://www.tutorialspoint.com/nodejs/nodejs_restful_api.htm

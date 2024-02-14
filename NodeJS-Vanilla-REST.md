@@ -309,7 +309,7 @@ console.log("Program Ended");
 
 `console` to print information on stdout and stderr. and `process` to get information on current process. Provides multiple events related to process activities are also globally available.
 
-### Utility Modules:
+### Utility Modules
 `OS Module` => Provides basic operating-system related utility functions.
 
 `Path Module` => Provides utilities for handling and transforming file paths.
