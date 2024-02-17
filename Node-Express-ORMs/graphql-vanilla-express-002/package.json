@@ -6,7 +6,8 @@
     "ruru": "^2.0.0-beta.11"
   },
   "scripts": {
-    "start": "node server.js"
+    "s1": "node server.js",
+    "s2": "node server2.js"
   },
   "name": "graphql-vanilla-express-002",
   "version": "1.0.0",
