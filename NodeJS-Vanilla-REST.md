@@ -430,7 +430,7 @@ const data = new Promise ((resolve, reject)=>{
     })
 })
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8000
 
 const server = http.createServer((req, res) => {
     async function (req, res) {

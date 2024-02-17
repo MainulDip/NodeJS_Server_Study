@@ -69,16 +69,20 @@ fetch("/graphql", {
 })
   .then(r => r.json())
   .then(data => console.log("data returned:", data))
+  
 ```
+* Server impl => graphql server using graphql-http
+
+Note: When a resolver takes arguments, they are passed as one “args” object, as the first argument to the function. Destructuring can be also used.
+Note: buildSchema can have only one `query` field, every `query` option should inside it
 
 ```js
-// graphql server using graphql-http
 const express = require("express");
 const {createHandler} = require("graphql-http/lib/use/express");
 const {buildSchema} = require("graphql");
 const {ruruHTML} = require("ruru/server");
 
-# // note: buildSchema can have only one query field, every query option should inside it.
+// note: buildSchema can have only one `query` field, every `query` option should inside it.
 var schema = buildSchema (`
     type Query {
         hello: String
@@ -91,6 +95,7 @@ var root = {
         return "Hello World"
     },
 
+    // When a resolver takes arguments, they are passed as one “args” object, as the first argument to the function
     rollDice: args => {
         var output = []
         for (var i = 0; i < args.numDice; i++) {
@@ -128,7 +133,7 @@ var schema = buildSchema(`
   }
 `)
 
-// The root provides a resolver function for each API endpoint
+// The root here provides resolver functions for each API endpoint
 var root = {
   quoteOfTheDay: () => {
     return Math.random() < 0.5 ? "Take it easy" : "Salvation lies within"
@@ -141,6 +146,7 @@ var root = {
   },
 }
 ```
+### Object Type   
 
 ### Next 
 => https://graphql.org/graphql-js/running-an-express-graphql-server/ || Follow full official instruction with Authentication

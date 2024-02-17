@@ -44,4 +44,4 @@ const app = new Vue({
 ```
 
 ### Terms:
-`“batteries included”` => the product/library/framework comes together (built in) with all possible parts/extensions required for full usability. So no need to install 3rd party extension.  
+`“batteries included”` => the product/library/framework comes together (built in) with all possible parts/extensions required for full usability. So no need to install 3rd party extension
