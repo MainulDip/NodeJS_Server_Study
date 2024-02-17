@@ -24,8 +24,9 @@
 
 
 ### Now
-=> Express form tutorials point and RESTful => Prisma SqlLite
-=> Express with `express-graphql` (Without apollo) [https://snipcart.com/blog/graphql-nodejs-express-tutorialhttps://snipcart.com/blog/graphql-nodejs-express-tutorial]
+=> Express form tutorials point and RESTful | Done
+=> Express with `express-graphql` (Without apollo) [https://snipcart.com/blog/graphql-nodejs-express-tutorialhttps://snipcart.com/blog/graphql-nodejs-express-tutorial] | Done
+=> Prisma SqlLite
 => Express with Apollo (Both Server and Client).
 => Node gRPC
 => Compose | SwiftUI | React Native (Finish Remaining)
@@ -38,4 +39,4 @@
 => Machine Learning
 => C# and Unity (AR/VR and Game) => Windows Desktop C# (March/April)
 => KMP for iOS|Android|Windows|Mac|Linux (May/June) [at this point U already knows all Native Platforms] => Basic Cloud Operations, Load Balancing, CI/CD
-(Spring Boot/JPA/ [Hibernate/Spring-Data-JDBC] /Lombok/Mockito).
+(Spring Boot/JPA/ [Hibernate/Spring-Data-JDBC] /Lombok/Mockito)

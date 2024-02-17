@@ -146,7 +146,147 @@ var root = {
   },
 }
 ```
-### Object Type   
+### Object Type
+This can be defined with `ES6 class`, where the resolvers are instance methods
+```js
+var schema = buildSchema(`
+  type RandomDie {
+    numSides: Int!
+    rollOnce: Int!
+    roll(numRolls: Int!): [Int]
+  }
 
-### Next 
+  type Query {
+    getDie(numSides: Int): RandomDie
+  }
+`)
+
+// This class implements the RandomDie GraphQL type
+
+class RandomDie {
+  constructor(numSides) {
+    this.numSides = numSides
+  }
+
+  rollOnce() {
+    return 1 + Math.floor(Math.random() * this.numSides)
+  }
+
+  roll({ numRolls }) {
+    var output = []
+    for (var i = 0; i < numRolls; i++) {
+      output.push(this.rollOnce())
+    }
+    return output
+  }
+}
+
+var root = {
+  getDie: ({ numSides }) => {
+    return new RandomDie(numSides || 6)
+  },
+}
+```
+
+### Mutations and Input Types:
+`mutation ...` is required in the graphql query field to mutate data. When defining schema, type `Mutation` and `Input` are also available along with `Query`.
+
+`Query` for data fetching and `Input` type is for using inside mutation function's parameter type
+
+```js
+// Note: ID is a type in graphql like, String or Int
+var schema = buildSchema(`
+    input MessageInput {
+        content: String
+        author: String
+    }
+
+    type Message {
+        id: ID!
+        content: String
+        author: String
+    }
+
+    type Query {
+        getMessage(id: ID!): Message
+    }
+
+    type Mutation {
+        createMessage(input: MessageInput): Message
+        updateMessage(id: ID!, input: MessageInput): Message
+    }
+`)
+
+class Message {
+    constructor(id, { content, author }) {
+        this.id = id
+        this.content = content
+        this.author = author
+    }
+}
+
+var fakeDatabase = {};
+
+var root = {
+    getMessage: ({ id }) => {
+        if (!fakeDatabase[id]) {
+            throw new Error("no message exists with id " + id)
+        }
+        return new Message(id, fakeDatabase[id])
+    },
+    createMessage: ({ input }) => {
+        // Create a random id for our "database".
+        var id = crypto.randomBytes(10).toString("hex")
+
+        fakeDatabase[id] = input
+        return new Message(id, input)
+    },
+    updateMessage: ({ id, input }) => {
+        if (!fakeDatabase[id]) {
+            throw new Error("no message exists with id " + id)
+        }
+        // This replaces all old data, but some apps might want partial update.
+        fakeDatabase[id] = input
+        return new Message(id, input)
+    },
+}
+```
+
+* Query the data
+
+```js
+var author = "andy"
+var content = "hope is a good thing"
+var query = `mutation CreateMessage($input: MessageInput) {
+  createMessage(input: $input) {
+    id // request for id field
+    content // request for content field
+  }
+}`
+
+fetch("/graphql", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  },
+  body: JSON.stringify({
+    query,
+    variables: {
+      input: {
+        author,
+        content,
+      },
+    },
+  }),
+})
+  .then(r => r.json())
+  .then(data => console.log("data returned:", data))
+```
+
+### Authentication:
+Authentication and Authorization work same way as RESTful server. Modules like Passport, express-jwt, and express-session can be used with `graphql-http`.
+
+
+### Docs 
 => https://graphql.org/graphql-js/running-an-express-graphql-server/ || Follow full official instruction with Authentication
